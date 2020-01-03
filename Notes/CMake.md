@@ -6,7 +6,7 @@ CMake -- это кроссплатформенная система автома
 
 #### Hello world
 
-Создадим пустую папку HelloCMake, а в ней два файла: `hello.cpp`
+Создадим пустую папку `HelloCMake`, а в ней два файла: `hello.cpp`
 
 ```c++
 #include <iostream>
@@ -85,7 +85,7 @@ Microsoft (R) Build Engine версии 16.4.0+e901037fe для .NET Framework
 Обратите внимание, мы сгенерировали проекты для отладочной сборки. Если нам нужен релизный билд, команда должна быть такая:
 
 ```
-cmake -DCMAKE_BUILD_TYPE=Release ..
+cmake -D CMAKE_BUILD_TYPE=Release ..
 cmake --build . --config Release
 ```
 
