@@ -8,6 +8,12 @@ enum codecvt_mode {
     generate_header = 2,
     little_endian = 1
 };
+
+template<
+    class InternT,
+    class ExternT,
+    class State
+> class codecvt;
  
 template<class Elem,
     unsigned long Maxcode = 0x10ffff,
@@ -25,7 +31,7 @@ template<class Elem,
 class codecvt_utf8_utf16;
 ```
 
-Пример перекодирования из `char*` UTF-8 в `std::wstring`:
+Пример перекодирования из UTF-8 в `std::wstring`:
 
 ```c++
 #include <iostream>
@@ -46,5 +52,60 @@ int main()
     std::string back = convert.to_bytes(text); // Обратно в UTF-8
 
     std::wcout << text << std::endl;
+}
+```
+
+Пример преобразования из однобайтной кодировки в `std::wstring` и обратно:
+
+```c++
+#include <iostream>
+#include <string>
+#include <locale>
+
+std::string narrow(const std::wstring &wide, const std::locale &loc)
+{
+    std::string result;
+    const auto length = wide.length();
+    if (!length) {
+        return result;
+    }
+
+    result.resize(length);
+    const auto start = wide.data();
+    const auto stop = start + length;
+    const auto buffer = const_cast<char*>(result.data());
+    std::use_facet<std::ctype<wchar_t>>(loc).narrow(start, stop, '?', buffer);
+
+    return result;
+}
+
+std::wstring widen(const std::string &str, const std::locale &loc)
+{
+    std::wstring result;
+    const auto length = str.length();
+    if (!length) {
+        return result;
+    }
+
+    result.resize(length);
+    const auto start = str.data();
+    const auto stop = start + length;
+    const auto buffer = const_cast<wchar_t*>(result.data());
+    std::use_facet<std::ctype<wchar_t>>(loc).widen(start, stop, buffer);
+
+    return result;
+}
+
+int main()
+{
+    //const std::locale loc(".866");
+    const std::locale loc(".1251");
+    const std::wstring ws1(L"Привет, мир!");
+
+    std::string s1 = narrow(ws1, loc);
+    std::cout &lt;&lt; s1 &lt;&lt; std::endl;
+
+    std::wstring ws2 = widen(s1, loc);
+    std::wcout &lt;&lt; ws2 &lt;&lt; std::endl;
 }
 ```
