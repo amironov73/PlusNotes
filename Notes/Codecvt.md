@@ -31,7 +31,7 @@ template<class Elem,
 class codecvt_utf8_utf16;
 ```
 
-Пример перекодирования из UTF-8 в `std::wstring`:
+Пример перекодирования из UTF-8 в `std::wstring` и обратно:
 
 ```c++
 #include <iostream>
@@ -55,7 +55,7 @@ int main()
 }
 ```
 
-Пример преобразования из однобайтной кодировки в `std::wstring` и обратно:
+Опосредованно эти классы используются в `<locale>`. Пример преобразования из однобайтной кодировки в `std::wstring` и обратно:
 
 ```c++
 #include <iostream>
