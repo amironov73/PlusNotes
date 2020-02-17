@@ -1,0 +1,48 @@
+### Переменные окружения
+
+#### Контроль сборки
+
+* **CMAKE_BUILD_PARALLEL_LEVEL** –
+* **CMAKE_CONFIG_TYPE** –
+* **CMAKE_EXPORT_COMPILE_COMMANDS** –
+* **CMAKE_GENERATOR** –
+* **CMAKE_GENERATOR_INSTANCE** –
+* **CMAKE_GENERATOR_PLATFORM** –
+* **CMAKE_GENERATOR_TOOLSET** -
+* **CMAKE_\<LANG\>_COMPILER_LAUNCHER** —
+* **CMAKE_MSVCIDE_RUN_PATH** –
+* **CMAKE_NO_VERBOSE** –
+* **CMAKE_OSX_ARCHITECTURES** –
+* **DESTDIR** –
+* **LDFLAGS** –
+* **MACOSX_DEPLOYMENT_TARGET** –
+* **\<PackageName\>_ROOT** –
+* **VERBOSE** –
+
+#### Для языков программирования
+
+* **ASM\<DIALECT\>** –
+* **ASM\<DIALECT\>FLAGS** –
+* **CC** –
+* **CFLAGS** –
+* **CSFLAGS** –
+* **CUDACXX** –
+* **CUDAFLAGS** –
+* **CUDAHOSTCXX** –
+* **CXX** –
+* **CXXFLAGS** –
+* **FC** –
+* **FFLAGS** –
+* **RC** –
+* **RCFLAGS** –
+* **SWIFTC** –
+
+#### CTest
+
+* **CMAKE_CONFIG_TYPE** –
+* **CTEST_INTERACTIVE_DEBUG_MODE** –
+* **CTEST_OUTPUT_ON_FAILURE** –
+* **CTEST_PARALLEL_LEVEL** –
+* **CTEST_PROGRESS_OUTPUT** –
+* **CTEST_USE_LAUNCHERS_DEFAULT** –
+* **DASHBOARD_TEST_FROM_CTEST** –
