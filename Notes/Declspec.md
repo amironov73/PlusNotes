@@ -1,6 +1,6 @@
 ### declspec
 
-Это [расширение от Microsoft](https://docs.microsoft.com/ru-ru/cpp/cpp/declspec?view=vs-2019), в той или иной степени поддерживаемое многими компиляторами, в т. ч. GCC/G++ из поставки MinGW.
+Это [расширение C/C++ от Microsoft](https://docs.microsoft.com/ru-ru/cpp/cpp/declspec?view=vs-2019), в той или иной степени поддерживаемое многими компиляторами, в т. ч. GCC/G++ из поставки MinGW.
 
 * **align( # )** – задает выравнивание структуры и её элементов:
 
