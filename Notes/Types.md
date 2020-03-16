@@ -46,3 +46,144 @@
 
 * `int_least8_t`, `int_least16_t`, `int_least32_t`, `int_least64_t`, `uint_least8_t`, `uint_least16_t`, `uint_least32_t`, `uint_least64_t`.  
 
+#### type traits
+
+type traits — специальный раздел стандартной библиотеки, предназначенная для шаблоностроителей. Она создаётся авторами компиляторов, а прикладные программисты могут только пользоваться ей. Добавить или поправить в ней что-либо не в наших силах.
+
+Предусмотрена куча шаблонов, выдающих самую разнообразную информацию об указанном типе (паре типов).
+
+```c++
+#include <iostream>
+#include <type_traits>
+ 
+template<class T, class U>
+void typeChecker (T arg1, U arg2)
+{
+    std::cout << "is void="
+        << std::is_void<T>::value << std::endl;
+    std::cout << "is null="
+        << std::is_null_pointer<T>::value << std::endl;
+    std::cout << "is integral="
+        << std::is_integral<T>::value << std::endl;
+    std::cout << "is float="
+        << std::is_floating_point<T>::value << std::endl;
+    std::cout << "is array="
+        << std::is_array<T>::value << std::endl;
+    std::cout << "is enum="
+        << std::is_enum<T>::value << std::endl;
+    std::cout << "is union="
+        << std::is_union<T>::value << std::endl;
+    std::cout << "is class="
+        << std::is_class<T>::value << std::endl;
+    std::cout << "is function="
+        << std::is_function<T>::value << std::endl;
+    std::cout << "is lvalue ref="
+        << std::is_lvalue_reference<T>::value << std::endl;
+    std::cout << "is rvalue ref="
+        << std::is_rvalue_reference<T>::value << std::endl;
+    std::cout << "is member object pointer="
+        << std::is_member_object_pointer<T>::value << std::endl;
+    std::cout << "is member function pointer="
+        << std::is_member_function_pointer<T>::value << std::endl;
+ 
+    std::cout << "===================" << std::endl;
+ 
+    std::cout << "is fundamental="
+              << std::is_fundamental<T>::value << std::endl;
+    std::cout << "is arithmetic="
+              << std::is_arithmetic<T>::value << std::endl;
+    std::cout << "is scalar="
+              << std::is_scalar<T>::value << std::endl;
+    std::cout << "is object="
+              << std::is_object<T>::value << std::endl;
+    std::cout << "is compound="
+              << std::is_compound<T>::value << std::endl;
+    std::cout << "is reference="
+              << std::is_reference<T>::value << std::endl;
+    std::cout << "is member_pointer="
+              << std::is_member_pointer<T>::value << std::endl;
+ 
+    std::cout << "===================" << std::endl;
+ 
+    std::cout << "is const="
+              << std::is_const<T>::value << std::endl;
+    std::cout << "is volatile="
+              << std::is_volatile<T>::value << std::endl;
+    std::cout << "is trivial="
+              << std::is_trivial<T>::value << std::endl;
+    std::cout << "is trivially copyable="
+              << std::is_trivially_copyable<T>::value << std::endl;
+    std::cout << "is standard layout="
+              << std::is_standard_layout<T>::value << std::endl;
+    std::cout << "is pod="
+              << std::is_pod<T>::value << std::endl;
+    std::cout << "is empty="
+              << std::is_empty<T>::value << std::endl;
+    std::cout << "is polymorphic="
+              << std::is_polymorphic<T>::value << std::endl;
+    std::cout << "is abstract="
+              << std::is_abstract<T>::value << std::endl;
+    std::cout << "is final="
+              << std::is_final<T>::value << std::endl;
+    std::cout << "is signed="
+              << std::is_signed<T>::value << std::endl;
+    std::cout << "is unsigned="
+              << std::is_unsigned<T>::value << std::endl;
+ 
+    std::cout << "===================" << std::endl;
+ 
+    std::cout << "is constructible="
+              << std::is_constructible<T>::value << std::endl;
+    std::cout << "is trivially constructible="
+              << std::is_trivially_constructible<T>::value << std::endl;
+    std::cout << "is nothrow constructible="
+              << std::is_nothrow_constructible<T>::value << std::endl;
+    std::cout << "is default constructible="
+              << std::is_default_constructible<T>::value << std::endl;
+    std::cout << "is copy constructible="
+              << std::is_copy_constructible<T>::value << std::endl;
+    std::cout << "is move constructible="
+              << std::is_move_constructible<T>::value << std::endl;
+ 
+    std::cout << "===================" << std::endl;
+ 
+    std::cout << "is assignable="
+              << std::is_assignable<T, U>::value << std::endl;
+    std::cout << "is trivially assignable="
+              << std::is_trivially_assignable<T, U>::value << std::endl;
+    std::cout << "is nothrow assignable="
+              << std::is_nothrow_assignable<T, U>::value << std::endl;
+    std::cout << "is copy assignable="
+              << std::is_copy_assignable<T>::value << std::endl;
+    std::cout << "is move assignable="
+              << std::is_move_assignable<T>::value << std::endl;
+ 
+    std::cout << "===================" << std::endl;
+ 
+    std::cout << "is destructible="
+              << std::is_destructible<T>::value << std::endl;
+    std::cout << "is trivially destructible="
+              << std::is_trivially_destructible<T>::value << std::endl;
+    std::cout << "is nothrow destructible="
+              << std::is_nothrow_destructible<T>::value << std::endl;
+    std::cout << "has virtual destructor="
+              << std::has_virtual_destructor<T>::value << std::endl;
+ 
+    std::cout << "===================" << std::endl;
+ 
+    std::cout << "rank="
+              << std::rank<T>::value << std::endl;
+    std::cout << "is same="
+              << std::is_same<T, U>::value << std::endl;
+    std::cout << "is base of="
+              << std::is_base_of<T, U>::value << std::endl;
+    std::cout << "is convertible="
+              << std::is_convertible<T, U>::value << std::endl;
+}
+ 
+int main()
+{
+    typeChecker (1, 'a');
+    return 0;
+}
+```
