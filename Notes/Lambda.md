@@ -56,6 +56,19 @@ https://en.cppreference.com/w/cpp/language/lambda
     auto y = [] (auto first, auto second) { return first + second; };    
     ```
   
+    Вышеприведенная лямбда превращается компилятором в примерно следующее:
+    
+    ```c++
+    struct Lambda1
+    {
+        template <typename FirstType, typename SecondType>
+        auto operator () (FirstType first, SecondType second) -> decltype (first + second)
+        {
+            return first + second;
+        } 
+    };
+    ```
+  
 * **mutable** - указывает, что лямбда должна сохранять свое состояние между вызовами. При использовании `mutable` список параметров опускать нельзя.
 
 * **noexcept** - спецификация `noexcept`, такая же, как у обычных функций/методов. Также можно писать `throw(type)` и т. п.  
