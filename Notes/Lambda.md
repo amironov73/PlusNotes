@@ -89,3 +89,49 @@ auto answer = [y]() constexpr
 ```
 
 Более того, лямбда считается constexpr автоматически (т. е. без явного указания), если её тело соответствует требованиям к constexpr.
+
+#### Лямбда с деструктором
+
+[Увидел у Jason Turner](https://www.youtube.com/watch?v=9L9uSHrJA08). Не знаю пока, есть ли в этом практический смысл, но выглядит просто ошеломляюще. C++17:
+
+```c++
+#include <iostream>
+ 
+int main ()
+{
+    auto lambda1 =
+        [
+            lambda2 = []
+            {
+                struct S
+                {
+                    int value = 123;
+                    S() { std::cout << "Created\n"; }
+                    S(const S&) { std::cout << "Copied\n"; }
+                    S(S&&) noexcept { std::cout << "Moved\n"; }
+                    ~S() { std::cout << "Destoryed\n"; }
+                };
+                return S {};
+            } ()
+        ]
+    {
+        return lambda2;
+    };
+ 
+    auto lambda3 = lambda1;
+    return lambda3().value;
+}
+```
+
+Выводит:
+
+```
+Created
+Moved
+Destoryed
+Copied
+Copied
+Destoryed
+Destoryed
+Destoryed
+```
