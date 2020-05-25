@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
+#include <csignal>
 #include <sys/socket.h>
+#include <sys/wait.h>
 #include <netinet/in.h>
 #include <unistd.h>
 
@@ -63,6 +65,46 @@ be set to indicate the error.
 
 ------------------------------------------------------------------
 
+#include <sys/types.h>
+#include <sys/wait.h>
+
+pid_t wait (int *status);
+
+pid_t waitpid (pid_t pid, int *status, int options);
+
+The value of options is an OR of zero or more of the following constants:
+WNOHANG
+return immediately if no child has exited.
+
+wait(): on success, returns the process ID of the terminated child;
+on error, -1 is returned.
+
+waitpid(): on success, returns the process ID of the child whose state
+has changed; if WNOHANG was specified and one or more child(ren) specified
+by pid exist, but have not yet changed state, then 0 is returned.
+On error, -1 is returned.
+
+------------------------------------------------------------------
+
+#include <signal.h>
+
+typedef void (*sighandler_t) (int);
+
+sighandler_t signal (int signum, sighandler_t handler);
+
+signal() sets the disposition of the signal signum to handler,
+which is either SIG_IGN, SIG_DFL, or the address of a programmer-defined
+function (a "signal handler").
+
+------------------------------------------------------------------
+
+#include <signal.h>
+
+int sigaction (int signum, const struct sigaction *act,
+              struct sigaction *oldact);
+
+------------------------------------------------------------------
+
 #include <sys/socket.h>
 
 ssize_t recv (int socket, void *buffer, size_t length, int flags);
@@ -73,6 +115,26 @@ the peer has performed an orderly shutdown, recv() shall return 0.
 Otherwise, -1 shall be returned and errno set to indicate the error.
 
 ------------------------------------------------------------------*/
+
+void handleSignal (int sig)
+{
+    std::cout << "Signal: " << sig << std::endl;
+
+    if (sig == SIGINT) {
+        std::cout << "SIGINT received" << std::endl;
+        std::exit (0);
+    }
+
+    if (sig == SIGCHLD) {
+        pid_t pid;
+        int status;
+
+        /* EEEEXTEERMINAAATE! */
+        while ((pid = ::waitpid (-1, &status, WNOHANG)) > 0) {
+            std::cout << "Child: " << pid << ", status: " << status << std::endl;
+        }
+    }
+}
 
 void handleClient (int clientHandle)
 {
@@ -154,9 +216,31 @@ void doServer()
     }
 }
 
+void setupSignalHandlers()
+{
+    // If the parent simply ignores SIGCHLD, the children
+    // are silently reaped and won't turn into zombies.
+    ::signal (SIGCHLD, SIG_IGN);
+
+    // New fashion
+    // struct sigaction sa { 0 };
+    // sigemptyset (&sa.sa_mask);
+    // sa.sa_flags = 0;
+    // sa.sa_handler = handleSignal;
+    // sigaction (SIGCHLD, &sa, nullptr);
+
+    // Old fashion
+    // ::signal (SIGCHLD, handleSignal);
+
+    ::signal (SIGINT, handleSignal);
+
+    std::cout << "Signal handler established" << std::endl;
+}
+
 int main()
 {
     std::cout << "Server started" << std::endl;
+    setupSignalHandlers();
     doServer();
     std::cout << "Server done" << std::endl;
     return 0;
