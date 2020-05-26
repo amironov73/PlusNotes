@@ -68,3 +68,20 @@ int main ()
     return 0;
 }
 ```
+
+В thread при необходимости можно передать произвольное количество параметров:
+
+```c++
+void int handler (int left, int right)
+{
+    std::cout << "Answer is " << (left + right) << std::endl;    
+}
+
+int main()
+{
+    std::thread t1 (handler, 1, 100);
+    std::thread t2 (handler, 123, 321);
+    t1.join();
+    t2.join();
+}
+```
