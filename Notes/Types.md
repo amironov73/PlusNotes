@@ -1,5 +1,22 @@
 ### Типы данных
 
+* void
+* integral
+* floating point
+* nullptr_t
+* class/struct
+* array
+* pointer
+* rvalue reference
+* lvalue reference
+* union
+* enum
+* function
+* member object pointer
+* member function pointer
+
+![type chart](img/types.png)
+
 #### Фундаментальные типы
 
 * `void` -- нужен для `void*`.
