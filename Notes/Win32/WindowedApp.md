@@ -26,7 +26,7 @@ static LRESULT CALLBACK MyWindowProc (HWND hwnd, UINT uMsg,
  
             FillRect (hdc, &ps.rcPaint, (HBRUSH) (COLOR_WINDOW+1));
             DrawText (hdc, mainText.data(), mainText.size(), &ps.rcPaint,
-                    DT_NOPREFIX|DT_CENTER|DT_VCENTER);
+                    DT_NOPREFIX|DT_CENTER|DT_VCENTER|DT_SINGLELINE);
  
             EndPaint (hwnd, &ps);
         }
