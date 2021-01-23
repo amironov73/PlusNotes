@@ -1,6 +1,6 @@
 ### Функция _malloca
 
-Функция [`_malloca`](https://docs.microsoft.com/ru-ru/cpp/c-runtime-library/reference/malloca?view=vs-2019) в Visual C++ runtime является гибридом `alloca` и `malloc` (и это отражено в её названии). Вот её прототип:
+Функция [`_malloca`](https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/malloca?view=vs-2019) в Visual C++ runtime является гибридом `alloca` и `malloc` (и это отражено в её названии). Вот её прототип:
 
 ```c
 #include <malloc.h>
